@@ -1,0 +1,43 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Game Night Choice</title>
+  <meta name="description" content="Stupid little app">
+  <meta name="author" content="Some idyit">
+
+  <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<style>
+table, th, td {
+    border: 1px solid black;
+}
+</style>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="js/decision.js"></script>
+  <form>
+  <table id="gametable"/>
+    <tr>
+      <th>Game Name</th>
+      <th>First Choice</th>
+      <th>Second Choice</th>
+    </tr>
+  </table>
+  <!--<div class='button'>
+    <button type='button'> Submit </button>
+  </div> -->
+  </form>
+  <form action='result.html'>
+  <input type="submit" value="Submit">
+  </form>
+  
+</body>
+</html>
