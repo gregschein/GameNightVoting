@@ -5,6 +5,20 @@ var games = [
     "Five Tribes",
 ];
 
+class BoardGame {
+    constructor(name, description, playerCount, playtime){
+        this.name = name;
+        this.description = description;
+        this.playerCount = playerCount;
+        this.playtime = playtime;
+    }
+}
+class Player {
+    constructor(name){
+        this.name = name;
+    }
+}
+
 $(document).ready(function(){
     createRows(games);
     bindForm();
@@ -12,18 +26,6 @@ $(document).ready(function(){
 });
 
 function bindForm() {
-    $('input[type=radio]').click(function() {
-        verticalExclusive($(this));
-    });
-
-    $('input[type=radio]').click(function() {
-        verticalExclusive($(this));
-    });
-
-    $('input[type=radio]').click(function() {
-        verticalExclusive($(this));
-    });
-
     $('input[type=radio]').click(function() {
         verticalExclusive($(this));
     });
@@ -58,3 +60,4 @@ function submitForm() {
     var secondChoice = $('input[data-col=2]:checked').attr('name');
     console.log(firstChoice + ' ' + secondChoice);
 }
+
