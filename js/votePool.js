@@ -5,8 +5,8 @@ var games1 = [
     "Five Tribes",
 ];
 
-class VotePool {
-    constructor(games){
+class VotePool1 {
+    constructor(date, games){
         this.resolved = false;
         this.gamelist = {}
         //Initializes games that can be voted on
@@ -52,6 +52,6 @@ class VotePool {
         console.log('Second ' + this.sortable[1][0]);
     }
 }
-var pool = new VotePool(games1);
-pool.resolveVotes();
-var playOccurance = []
+//var pool = new VotePool(games1);
+//pool.resolveVotes();
+//var playOccurance = []
