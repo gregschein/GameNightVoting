@@ -1,4 +1,6 @@
-class VotePool {
+var dataStructures = require('./dataStructures.js');
+//console.log(dataStructures.createVote('greg', 'agricola', 'today'));
+module.exports = class VotePool {
 
     constructor(date) {
         this.resolved = false;
@@ -66,30 +68,30 @@ class VotePool {
     }
 }
 //Initializing test VotePool
-var test = new VotePool('today');
+// var test = new VotePool('today');
 
-var games1 = [
-    'Agricola',
-    'Spartacus',
-    'Keyflower',
-    "Five Tribes",
-    'Agricola',
+// var games1 = [
+//     'Agricola',
+//     'Spartacus',
+//     'Keyflower',
+//     "Five Tribes",
+//     'Agricola',
     
-];
+// ];
 
-for (i=0; i<games1.length; i++) {
-    test.castVote(createVote('Greg', games1[i], 'today'));
-}
-//end init
+// for (i=0; i<games1.length; i++) {
+//     test.castVote(dataStructures.createVote('Greg', games1[i], 'today'));
+// }
+// //end init
 
-function map_games(votes) {
-    var mapped_games = {};
-    votes.map(_tallyVote);
-    return mapped_games;
-}
+// function map_games(votes) {
+//     var mapped_games = {};
+//     votes.map(_tallyVote);
+//     return mapped_games;
+// }
 
-function findWinner(mapped_votes) {
-    return Object.keys(mapped_votes).reduce(function(a, b) {return mapped_votes[a] > mapped_votes[b] ? a : b});
-}
-test.resolveVotes();
-//const banana = findWinner(game_list);
+// function findWinner(mapped_votes) {
+//     return Object.keys(mapped_votes).reduce(function(a, b) {return mapped_votes[a] > mapped_votes[b] ? a : b});
+// }
+// test.resolveVotes();
+// //const banana = findWinner(game_list);

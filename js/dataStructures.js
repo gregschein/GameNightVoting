@@ -1,9 +1,8 @@
-function createVote(name, game, date){
+exports.createVote = function createVote(name, game, date){
     vote = {}
     vote['VoterName'] = name;
     vote['GameName'] = game;
     vote['Date'] = date;
-    //console.log(vote);
     return vote;
 }
 

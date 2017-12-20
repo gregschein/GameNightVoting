@@ -50,4 +50,4 @@ function sortVotes(votes) {
     sortable.sort(function(a, b) { return b[1] - a[1]})
     return sortable;
     }
-gameChoices();
+//gameChoices();
