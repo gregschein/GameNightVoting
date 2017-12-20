@@ -5,8 +5,8 @@ module.exports = function(grunt) {
         src : 'js/**/*.js',
         // Your Jasmine spec files
         options: {
-          specs : 'specs/**/*Spec.js',
-          helpers : 'specs/helpers/*.js'
+          specs : 'spec/**/*Spec.js',
+          helpers : 'spec/helpers/*.js'
         }
         
         // Your spec helper files
