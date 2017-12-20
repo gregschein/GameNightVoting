@@ -1,0 +1,15 @@
+{
+    "name": "gamenightvoting",
+    "version": "0.0.1",
+    "description": "Helps us stop wasting time deciding on a game during game nights.",
+    "scripts": {
+        "test": "jasmine"
+    },
+    "dependencies": {
+        "grunt": "^1.0.1",
+        "jasmine": "^2.8.0"
+    },
+    "devDependencies": {
+        "grunt-contrib-jasmine": "^1.1.0"
+    }
+}
