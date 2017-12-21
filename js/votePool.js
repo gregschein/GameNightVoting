@@ -1,71 +1,63 @@
-var dataStructures = require('./dataStructures.js');
-//console.log(dataStructures.createVote('greg', 'agricola', 'today'));
-module.exports = class VotePool {
-
+let dataStructures = require('./dataStructures.js');
+/** VotePool class handles all votes and decides game for a given game night
+ */
+class VotePool {
+    /** Initializes member variables for future use.
+     * @param {integer} date - Date of game night in yyyymmdd format.
+     */
     constructor(date) {
         this.resolved = false;
         this.date = date;
         this.votes = [];
-        this.game_list = {};
-        this.current_winner = 0;
-    }
+        this.gameList = {};
+        this.currentWinner = 0;
+    };
+    /** Casts a vote for a specific game, and stores for resolution.
+     * @param {object} Vote - Uses Vote object created by createVote
+     */
     castVote(Vote) {
-        if (this.resolved == true) {
-            //say vote pool closed
-        }
-        else {
-            this.votes.push(Vote);
-        }
-    }
-
+        this.votes.push(Vote);
+    };
+    /** Resolves VotePool
+     * @return {string} - Winning game name.
+     */
     resolveVotes() {
+        let tallied = this.tallyVotes();
+        return this.findWinner(tallied);
+    }
+    /** Determines winning game based on cast votes in this.votes.
+     * @return {object} - List of games with their vote counts.
+     */
+    tallyVotes() {
         this.resolved = true;
-        var game_list = {}; //this.votes.map(this._tallyVote, this);
-        for (var i=0; i<this.votes.length; i++) {
-            var vote = this.votes[i];
-            if (Object.keys(game_list).indexOf(vote['GameName']) > -1) {
-                game_list[vote['GameName']]++;
-              }
-              else {
-                game_list[vote['GameName']] = 1;
-              }
-        }
-        return;
-        //functions up until this point (tallies votes into list of Name: number format.)
-        //To do: pick a winner from tally votes.
-        const something = this._findWinner().current_winner;
-        //resolve votes in some way and return results
+        let gameList = {};
+        for (let i=0; i<this.votes.length; i++) {
+            const vote = this.votes[i];
+            if (Object.keys(gameList).indexOf(vote['GameName']) > -1) {
+                gameList[vote['GameName']]++;
+            } else {
+                gameList[vote['GameName']] = 1;
+            };
+        };
+        return gameList;
     }
-
-    _tallyVote(vote) { 
-        console.log(vote['GameName'], Object.keys(this.game_list))
-        if (Object.keys(this.game_list).indexOf(vote['GameName']) > -1) {
-          this.game_list[vote['GameName']]++;
-          console.log(this.game_list)
-        }
-        else {
-          this.game_list[vote['GameName']] = 1;
-        }
-    }
-
-    _findWinner() {
-        console.log(this.game_list);
-        return Object.keys(this.game_list).reduce(function(acc, cur, i, arr) {
-            if (acc.current_winner == 0) {
-                acc.current_winner = acc.game_list[cur];
-                return acc;
+    /** Returns the game name with most votes.
+     * @param {object} talliedVotes - List of games and their vote counts.
+     * @return {string} - Name of game with most votes.
+     */
+    findWinner(talliedVotes) {
+        let currentWinner = '';
+        for (let game in talliedVotes) {
+            if (currentWinner === '') {
+                currentWinner = game;
+            } else {
+                if (talliedVotes[game] > talliedVotes[currentWinner]) {
+                    currentWinner = game;
+                  }
             }
-            if (acc.game_list[acc.current_winner] > acc.game_list[cur]) {
-                return acc;
-            }
-            
-            acc.current_winner = acc.game_list[cur];
-            if (i+1 == arr.length) {
-                console.log(acc.current_winner)
-            }
-            return acc;
-        }, this);
-    }
-}
+        };
+        return currentWinner;
+    };
+};
 
-
+module.exports = VotePool;

@@ -4,32 +4,17 @@ var games = [
     'Keyflower',
     "Five Tribes",
 ];
-
-class BoardGame {
-    constructor(name, description, playerCount, playtime){
-        this.name = name;
-        this.description = description;
-        this.playerCount = playerCount;
-        this.playtime = playtime;
-    }
-}
-class Player {
-    constructor(name){
-        this.name = name;
-    }
-}
-
-$(document).ready(function(){
+$(document).ready(function() {
     createRows(games);
     bindForm();
-    bindSubmit();    
+    bindSubmit();
 });
 
 function bindForm() {
     $('input[type=radio]').click(function() {
         verticalExclusive($(this));
     });
-}
+};
 
 function bindSubmit() {
     $('button[type=button]').click(function() {

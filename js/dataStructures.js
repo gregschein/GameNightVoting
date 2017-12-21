@@ -1,11 +1,17 @@
-exports.createVote = function createVote(name, game, date) {
+/** Creates a new Vote object.
+ * @param {string} name - Name of the Player casting the vote.
+ * @param {string} game - Name of the Game.
+ * @param {integer} date - Date of game night, using yyyymmdd format.
+ * @return {object} - A new Vote object.
+ */
+function createVote(name, game, date) {
     vote = {};
     vote['VoterName'] = name;
     vote['GameName'] = game;
     vote['Date'] = date;
     return vote;
 };
-/** This is a constructor for the Player object.
+/** Creates a new Player object.
  * @param {string} name - Name of the player.
  * @return {object} - A new player object.
  */
@@ -43,3 +49,5 @@ function newPlayOccurance(game, players, date) {
     playOccurance['Date'] = date;
     return playOccurance;
 };
+
+exports.createVote = createVote;
