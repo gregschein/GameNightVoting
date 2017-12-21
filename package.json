@@ -6,10 +6,12 @@
         "test": "jasmine"
     },
     "dependencies": {
+        "eslint": "^4.13.1",
         "grunt": "^1.0.1",
         "jasmine": "^2.8.0"
     },
     "devDependencies": {
+        "eslint-config-google": "^0.9.1",
         "grunt-contrib-jasmine": "^1.1.0"
     }
 }

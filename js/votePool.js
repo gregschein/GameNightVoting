@@ -1,57 +1,71 @@
-var games1 = [
-    'Agricola',
-    'Spartacus',
-    'Keyflower',
-    "Five Tribes",
-];
+var dataStructures = require('./dataStructures.js');
+//console.log(dataStructures.createVote('greg', 'agricola', 'today'));
+module.exports = class VotePool {
 
-class VotePool1 {
-    constructor(date, games){
+    constructor(date) {
         this.resolved = false;
-        this.gamelist = {}
-        //Initializes games that can be voted on
-        for(var i=0; i<games.length; i++){
-            this.gamelist[games[i]] = 0;
-        }
+        this.date = date;
+        this.votes = [];
+        this.game_list = {};
+        this.current_winner = 0;
     }
-    addGame(game){
-        //add game to selection
-        this[game] = 0;
-    }
-    castVote(firstChoice, secondChoice){
-        if (this.resolved = true) {
-            //Something says voting completed
-            return 0;
-        }
-        //Takes in voter's first and second choice, and weights the results
-        if (typeof this[firstChoice] !== 'undefined') {
-            this.firstChoice +=3;
+    castVote(Vote) {
+        if (this.resolved == true) {
+            //say vote pool closed
         }
         else {
-            //Create appropriate response function later
+            this.votes.push(Vote);
         }
-        if (typeof this[secondChoice] !== 'undefined') {
-            this.secondChoice +=1;
-        }
-        else {
-            //Create appropriate response function later
-        }
-        
     }
-    resolveVotes(){
-        //TBD
-        console.log('do stuff?');
+
+    resolveVotes() {
         this.resolved = true;
-        this.weightedVotes = {};
-        this.sortable = [];
-        for (var game in this.gamelist) {
-            this.sortable.push([game, this.gamelist[game]]);
+        var game_list = {}; //this.votes.map(this._tallyVote, this);
+        for (var i=0; i<this.votes.length; i++) {
+            var vote = this.votes[i];
+            if (Object.keys(game_list).indexOf(vote['GameName']) > -1) {
+                game_list[vote['GameName']]++;
+              }
+              else {
+                game_list[vote['GameName']] = 1;
+              }
         }
-        this.sortable.sort(function(a, b) { return b[1] - a[1]});
-        console.log('First ' + this.sortable[0][0]);
-        console.log('Second ' + this.sortable[1][0]);
+        return;
+        //functions up until this point (tallies votes into list of Name: number format.)
+        //To do: pick a winner from tally votes.
+        const something = this._findWinner().current_winner;
+        //resolve votes in some way and return results
+    }
+
+    _tallyVote(vote) { 
+        console.log(vote['GameName'], Object.keys(this.game_list))
+        if (Object.keys(this.game_list).indexOf(vote['GameName']) > -1) {
+          this.game_list[vote['GameName']]++;
+          console.log(this.game_list)
+        }
+        else {
+          this.game_list[vote['GameName']] = 1;
+        }
+    }
+
+    _findWinner() {
+        console.log(this.game_list);
+        return Object.keys(this.game_list).reduce(function(acc, cur, i, arr) {
+            if (acc.current_winner == 0) {
+                acc.current_winner = acc.game_list[cur];
+                return acc;
+            }
+            if (acc.game_list[acc.current_winner] > acc.game_list[cur]) {
+                return acc;
+            }
+            
+            acc.current_winner = acc.game_list[cur];
+            if (i+1 == arr.length) {
+                console.log(acc.current_winner)
+            }
+            return acc;
+        }, this);
     }
 }
-//var pool = new VotePool(games1);
-//pool.resolveVotes();
-//var playOccurance = []
+
+
