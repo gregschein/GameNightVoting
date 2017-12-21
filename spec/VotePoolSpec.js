@@ -1,7 +1,7 @@
 let dataStructures = require('../js/dataStructures.js');
 let VotePool = require('../js/votePool.js');
 describe('Tests Resolve Votes', function() {
-    it('Should Compile all votes into a single list', function() {
+    it('Should create list of votes', function() {
         let TestPool = new VotePool('today');
         const TestGames = [
             'Spartacus',
@@ -22,16 +22,23 @@ describe('Tests Resolve Votes', function() {
             {VoterName: 'Greg', GameName: 'Agricola', Date: 'today'},
         ]);
     });
-    // it('Should find the game with the most votes', function() {
-    //     let TestPool = new VotePool('today');
-    //     const TestGames = [
-    //         'Spartacus',
-    //         'Keyflower',
-    //         'Agricola',
-    //         'Five Tribes',
-    //         'Agricola',
-    //     ];
-    // });
+    it('Should create list of games and their number of votes', function() {
+        let TestPool = new VotePool('today');
+        const TestGames = [
+            'Spartacus',
+            'Keyflower',
+            'Agricola',
+            'Five Tribes',
+            'Agricola',
+        ];
+        for (i=0; i<TestGames.length; i++) {
+            TestPool.castVote(dataStructures
+                .createVote('Greg', TestGames[i], 'today'));
+        };
+        expect(TestPool.tallyVotes()).toEqual(
+            {'Spartacus': 1, 'Keyflower': 1, 'Agricola': 2, 'Five Tribes': 1}
+        );
+    });
     it('Should find the game with the most votes', function() {
         let TestPool = new VotePool('today');
         const TestGames = [
@@ -41,13 +48,12 @@ describe('Tests Resolve Votes', function() {
             'Five Tribes',
             'Agricola',
             'Five Tribes',
-            'Five Tribes',
-            'Five Tribes',
         ];
         for (i=0; i<TestGames.length; i++) {
             TestPool.castVote(dataStructures
                 .createVote('Greg', TestGames[i], 'today'));
         };
-        expect(TestPool.resolveVotes()).toBe('Five Tribes');
+        TestPool.resolveVotes();
+        expect(TestPool.resolveVotes()).toEqual(['Agricola', 'Five Tribes']);
     });
 });

@@ -46,15 +46,16 @@ class VotePool {
      * @return {string} - Name of game with most votes.
      */
     findWinner(talliedVotes) {
-        let currentWinner = '';
+        let currentWinner = [];
         for (let game in talliedVotes) {
-            if (currentWinner === '') {
-                currentWinner = game;
-            } else {
-                if (talliedVotes[game] > talliedVotes[currentWinner]) {
-                    currentWinner = game;
-                  }
-            }
+            if (currentWinner.length == 0) {
+                currentWinner[0] = game;
+            } else if (talliedVotes[game] == talliedVotes[currentWinner[0]]) {
+                    currentWinner.push(game);
+                } else if (talliedVotes[game] >
+                    talliedVotes[currentWinner[0]]) {
+                        currentWinner = [game];
+                }
         };
         return currentWinner;
     };
