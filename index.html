@@ -25,20 +25,24 @@ table, th, td {
   <script src="js/dataStructures.js"></script>
   <script src="js/votePool.js"></script>
   <script src="js/votePool.js"></script>
-  <form>
-  <table id="gametable"/>
+  <form action='result.html'>
+    <div>
+  <table id="gametable" method="post"/>
     <tr>
       <th>Game Name</th>
       <th>First Choice</th>
       <th>Second Choice</th>
     </tr>
+    <tr>
+      <td>
+        <label for="New Game">Testing</label></td>
+        <td colspan="2"><input type="text" id="New Game"></td>
+    </tr>
   </table>
-  <!--<div class='button'>
-    <button type='button'> Submit </button>
-  </div> -->
-  </form>
-  <form action='result.html'>
-  <input type="submit" value="Submit">
+  </div>
+  <div class="button">
+    <button type="button">Hello</button>
+  </div>
   </form>
   
 </body>
