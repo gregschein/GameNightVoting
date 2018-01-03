@@ -4,6 +4,7 @@ let games = [
     'Keyflower',
     'Five Tribes',
 ];
+sessionStorage.setItem('games', games);
 $(document).ready(function() {
     createRows(games);
     bindForm();
@@ -15,14 +16,17 @@ function bindForm() {
         verticalExclusive($(this));
     });
 };
-/** Binds Submit button*/
+/** Binds Buttons*/
 function bindSubmit() {
-    $('button[type=button]').click(function() {
-        submitForm();
+    $('button[id="New Game"]').click(function() {
+        submitNewGame();
+    });
+    $('button[id="Vote"]').click(function() {
+        submitVote();
     });
 }
 /** Prevents multiple votes for same rank.
- * @param {element} element - stuff.
+ * @param {element} element - Radio Button.
  */
 function verticalExclusive(element) {
     let col = element.data('col');
@@ -47,21 +51,26 @@ function createRows(games) {
     }
     let playerSubmit = '<tr><td><input type ="text" name="playerSubmitted"';
 }
-/** Function submits votes for first and second choice.
+/** Function adds new game to list of choices.
  */
-function submitForm() {
+function submitNewGame() {
     let text = $('input[id="New Game"]');
     let template = `
     <tr>
-        <td>`+ games[i] + `</td> 
+        <td>`+ text.val() + `</td> 
         <td><input type="radio" name=`
          + text.val().replace(/ /g, '') + ` data-col="1"/></td>
         <td><input type="radio" name=`
          + text.val().replace(/ /g, '') + ` data-col="2"/></td>
     </tr>`;
     $('#gametable').append(template);
-    // let firstChoice = $('input[data-col=1]:checked').attr('name');
-    // let secondChoice = $('input[data-col=2]:checked').attr('name');
-    // console.log(firstChoice + ' ' + secondChoice + ' ' + text.val());
+    sessionStorage.setItem('games', games);
+    console.log(games);
 }
-
+/** Function submits votes for first and second choice.
+ */
+function submitVote() {
+    let firstChoice = $('input[data-col=1]:checked').attr('name');
+    let secondChoice = $('input[data-col=2]:checked').attr('name');
+    console.log(firstChoice + ' ' + secondChoice);
+}

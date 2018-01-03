@@ -23,24 +23,23 @@
   <script src="js/dataStructures.js"></script>
   <script src="js/votePool.js"></script>
   <script src="js/votePool.js"></script>
-  <form action='result.html'>
+  <form action='result.html'  method="post">
+  <div>
     <div>
-  <table id="gametable" method="post"/>
-    <tr>
-      <th>Game Name</th>
-      <th>First Choice</th>
-      <th>Second Choice</th>
-    </tr>
-    <tr>
-      <td>
-        <label for="New Game">Testing</label></td>
-        <td colspan="2"><input type="text" id="New Game"></td>
-    </tr>
-  </table>
-  </div>
-  <div class="button">
-    <button type="button">Hello</button>
-  </div>
+      <label for="New Game">New Game Suggestion </label>
+      <input type="text" id="New Game">
+      <button type="button" id="New Game">Add</button>
+    </div>
+    <table id="gametable"/>
+      <tr>
+        <th>Game Name</th>
+        <th>First Choice</th>
+        <th>Second Choice</th>
+      </tr>
+    </table>
+    <button type="button" id="Vote">Vote</button>
+    <input type="submit" value="Submit">
+    </div>
   </form>
   
 </body>
