@@ -9,23 +9,20 @@ $(document).ready(function() {
     bindForm();
     bindSubmit();
 });
-/** Function binds radio buttons
- */
+/** Binds verticalExlusive to radio buttons. */
 function bindForm() {
     $('input[type=radio]').click(function() {
         verticalExclusive($(this));
     });
 };
-/** Function binds radio buttons
- */
+/** Binds Submit button*/
 function bindSubmit() {
     $('button[type=button]').click(function() {
         submitForm();
     });
 }
-/**
- * Function allows only one vote for first and one for second.
- * @param {element} element - Radio button
+/** Prevents multiple votes for same rank.
+ * @param {element} element - stuff.
  */
 function verticalExclusive(element) {
     let col = element.data('col');
@@ -48,7 +45,7 @@ function createRows(games) {
             </tr>`;
         $('#gametable').append(template);
     }
-    let playerSubmit = '<tr><td><input type ="text" name="playerSubmitted"'
+    let playerSubmit = '<tr><td><input type ="text" name="playerSubmitted"';
 }
 /** Function submits votes for first and second choice.
  */

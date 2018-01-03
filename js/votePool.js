@@ -16,7 +16,11 @@ class VotePool {
      * @param {object} Vote - Uses Vote object created by createVote
      */
     castVote(Vote) {
+        if (this.resolved == true) {
+            console.log('VotePool already resolved');
+        } else {
         this.votes.push(Vote);
+        }
     };
     /** Resolves VotePool
      * @return {string} - Winning game name.
