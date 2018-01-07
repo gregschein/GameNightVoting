@@ -1,12 +1,11 @@
-let games = [
-    'Agricola',
-    'Spartacus',
-    'Keyflower',
-    'Five Tribes',
-];
-sessionStorage.setItem('games', games);
+if (localStorage.games) {
+    gameList = localStorage.games.split(',');
+}
+let PageViews = new VoteViews(gameList);
+let PagePool = new VotePool('today');
 $(document).ready(function() {
-    createRows(games);
+    PageViews.rendertable();
+    $('div[class="initiallyHidden"]').toggle();
     bindForm();
     bindSubmit();
 });
@@ -19,10 +18,18 @@ function bindForm() {
 /** Binds Buttons*/
 function bindSubmit() {
     $('button[id="New Game"]').click(function() {
-        submitNewGame();
+        let gameInput = $('input[id="New Game"]').val();
+        PageViews.submitNewGame(gameInput);
     });
     $('button[id="Vote"]').click(function() {
         submitVote();
+    });
+    $('button[id="Resolve"]').click(function() {
+        PageViews.renderGameWinner(PagePool.resolveVotes());
+    });
+    $('button[id="Dev"]').click(function() {
+        let devCMD = $('input[id="Dev"]').val();
+        devStuff(devCMD);
     });
 }
 /** Prevents multiple votes for same rank.
@@ -32,45 +39,22 @@ function verticalExclusive(element) {
     let col = element.data('col');
     $('input[data-col=' + col + ']').prop('checked', false);
     element.prop('checked', true);
-}
-/**
- * Function creates table of games to vote on.
- * @param {list} games - List of game names.
- */
-function createRows(games) {
-    for (i=0; i<games.length; i++) {
-        let template = `
-            <tr>
-                <td>`+ games[i] + `</td> 
-                <td><input type="radio" name=`
-                 + games[i].replace(/ /g, '') + ` data-col="1"/></td>
-                <td><input type="radio" name=`
-                 + games[i].replace(/ /g, '') + ` data-col="2"/></td>
-            </tr>`;
-        $('#gametable').append(template);
-    }
-    let playerSubmit = '<tr><td><input type ="text" name="playerSubmitted"';
-}
-/** Function adds new game to list of choices.
- */
-function submitNewGame() {
-    let text = $('input[id="New Game"]');
-    let template = `
-    <tr>
-        <td>`+ text.val() + `</td> 
-        <td><input type="radio" name=`
-         + text.val().replace(/ /g, '') + ` data-col="1"/></td>
-        <td><input type="radio" name=`
-         + text.val().replace(/ /g, '') + ` data-col="2"/></td>
-    </tr>`;
-    $('#gametable').append(template);
-    sessionStorage.setItem('games', games);
-    console.log(games);
-}
+};
 /** Function submits votes for first and second choice.
  */
 function submitVote() {
     let firstChoice = $('input[data-col=1]:checked').attr('name');
+    if (firstChoice == undefined) {
+        alert('Please select your first choice');
+        return;
+    }
+    let firstVote = createVote('guest', firstChoice, 'today');
+    PagePool.castVote(firstVote);
+    PagePool.castVote(firstVote);
     let secondChoice = $('input[data-col=2]:checked').attr('name');
-    console.log(firstChoice + ' ' + secondChoice);
-}
+    if (secondChoice !== undefined) {
+        let secondVote = createVote('guest', secondChoice, 'today');
+        PagePool.castVote(secondVote);
+    };
+    PageViews.toggleVotingView();
+};

@@ -1,4 +1,4 @@
-let dataStructures = require('./dataStructures.js');
+// let dataStructures = require('./dataStructures.js');
 /** VotePool class handles all votes and decides game for a given game night
  */
 class VotePool {
@@ -9,8 +9,6 @@ class VotePool {
         this.resolved = false;
         this.date = date;
         this.votes = [];
-        this.gameList = {};
-        this.currentWinner = 0;
     };
     /** Casts a vote for a specific game, and stores for resolution.
      * @param {object} Vote - Uses Vote object created by createVote
@@ -27,7 +25,8 @@ class VotePool {
      */
     resolveVotes() {
         let tallied = this.tallyVotes();
-        return this.findWinner(tallied);
+        let winner = this.findWinner(tallied);
+        return winner + ' with ' + tallied[winner[0]] + ' votes.';
     }
     /** Determines winning game based on cast votes in this.votes.
      * @return {object} - List of games with their vote counts.
@@ -65,4 +64,4 @@ class VotePool {
     };
 };
 
-module.exports = VotePool;
+// module.exports = VotePool;

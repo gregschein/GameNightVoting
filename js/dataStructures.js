@@ -50,4 +50,4 @@ function newPlayOccurance(game, players, date) {
     return playOccurance;
 };
 
-exports.createVote = createVote;
+// exports.createVote = createVote;

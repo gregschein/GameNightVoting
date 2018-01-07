@@ -19,10 +19,11 @@
 </style>
 <body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="js/scripts.js"></script>
+  <script src="js/views.js"></script>
+  <script src="js/dev.js"></script>
   <script src="js/dataStructures.js"></script>
   <script src="js/votePool.js"></script>
-  <script src="js/votePool.js"></script>
+  <script src="js/scripts.js"></script>
   <form action='result.html'  method="post">
   <div>
     <div>
@@ -30,14 +31,23 @@
       <input type="text" id="New Game">
       <button type="button" id="New Game">Add</button>
     </div>
-    <table id="gametable"/>
+    <div>
+      <label for="Dev">Dev Stuff </label>
+      <input type="text" id="Dev">
+      <button type="button" id="Dev">Test</button>
+    </div>
+    <table id="gametable" title="voting"/>
       <tr>
         <th>Game Name</th>
         <th>First Choice</th>
         <th>Second Choice</th>
       </tr>
     </table>
-    <button type="button" id="Vote">Vote</button>
+    <div id='voted' class='initiallyHidden' title='voting'>
+      THANKS FOR VOTING BRUH
+    </div>
+    <button type="button" id="Vote" title="voting">Vote</button>
+    <button type="button" id="Resolve">Resolve</button>
     <input type="submit" value="Submit">
     </div>
   </form>
