@@ -7,8 +7,7 @@ let gameList = [
 
 function devStuff(command) {
     if (command == 'test') {
-        let addition = '<img src=http://i0.kym-cdn.com/entries/icons/mobile/000/001/030/DButt.jpg>';
-        $('body').append(addition);
+        boardGameDetails('test');
     }
     if (command == 'clear') {
         localStorage.clear();

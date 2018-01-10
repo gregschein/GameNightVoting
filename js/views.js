@@ -48,5 +48,22 @@ class VoteViews {
     };
     renderGameWinner(winner) {
         $('#voted').html('Winner: ' + winner);
+    };
+    renderBoardGameDetails(game) {
+        let template = `
+        <span id="BoardGameDetails" style="white-space: pre-line">
+            <h4>Board Game Details</h4>
+            <label for="BoardGameTitle">Name</label>
+            <input type="text" id="BoardGameTitle" value=`+game+`>
+            <label for="BoardGamePlayerCount">Player Count</label>
+            <input type="text" id="BoardGamePlayerCount">
+            <label for="BoardGamePlayTime">Play Time</label>
+            <input type="text" id="BoardGamePlayTime">
+            <label for="BoardGameDescription">Description</label>
+            <textarea id="BoardGameDescription" cols=25 rows=4></textarea>
+            <button type="button" id="BoardGameSubmit">Submit</button>
+        </span>
+        `;
+        $('div[id="BoardGameDetails"]').append(template);
     }
 };

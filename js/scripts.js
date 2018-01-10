@@ -21,6 +21,11 @@ function bindSubmit() {
         let gameInput = $('input[id="New Game"]').val();
         PageViews.submitNewGame(gameInput);
     });
+    $('button[id="PlayerName"]').click(function() {
+        let playerName = $('input[id="PlayerName"]').val();
+        playerLogIn(playerName);
+        localStorage.setItem('PlayerName', playerName);
+    });
     $('button[id="Vote"]').click(function() {
         submitVote();
     });
@@ -43,18 +48,39 @@ function verticalExclusive(element) {
 /** Function submits votes for first and second choice.
  */
 function submitVote() {
+    if (localStorage.PlayerName == undefined) {
+        alert('Please Log in to vote.');
+        return;
+    }
     let firstChoice = $('input[data-col=1]:checked').attr('name');
     if (firstChoice == undefined) {
         alert('Please select your first choice');
         return;
     }
-    let firstVote = createVote('guest', firstChoice, 'today');
+    let firstVote = createVote(localStorage.PlayerName, firstChoice, 'today');
     PagePool.castVote(firstVote);
     PagePool.castVote(firstVote);
     let secondChoice = $('input[data-col=2]:checked').attr('name');
     if (secondChoice !== undefined) {
-        let secondVote = createVote('guest', secondChoice, 'today');
+        let secondVote = createVote(
+            localStorage.PlayerName, secondChoice, 'today');
         PagePool.castVote(secondVote);
     };
     PageViews.toggleVotingView();
 };
+function playerLogIn(playerName) {
+    localStorage.setItem('PlayerName', playerName);
+    $('span[id=PlayerNameButton]').hide();
+    alert('Thanks for logging in ' + playerName);
+}
+
+function boardGameDetails(gamename) {
+    if ($('span[id="BoardGameDetails"]').length > 0) {
+        alert('Please close other game before editing a new one');
+    };
+    PageViews.renderBoardGameDetails(gamename);
+    $('button[id="BoardGameSubmit"]').click(function() {
+        // do stuff with the data
+        $('span[id="BoardGameDetails"]').remove();
+    });
+}
