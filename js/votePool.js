@@ -9,6 +9,7 @@ class VotePool {
         this.resolved = false;
         this.date = date;
         this.votes = [];
+        this.players = {};
     };
     /** Casts a vote for a specific game, and stores for resolution.
      * @param {object} Vote - Uses Vote object created by createVote

@@ -12,10 +12,9 @@ class VoteViews {
     /**
      * Renders table of games that can be voted on.
      */
-    rendertable() {
+    renderTable() {
         for (let i=0; i<this.games.length; i++) {
-            let template = this.renderGameRow(this.games[i]);
-            $('#gametable').append(template);
+            this.renderNewGame(this.games[i]);
         }
     }
     /**
@@ -25,24 +24,22 @@ class VoteViews {
      */
     renderGameRow(gameName) {
         return `
-            <tr>
-                <td>`+ gameName + `</td> 
+            <tr id="` + gameName.replace(/ /g, '') + `" align="center">
+                <td>
+                    <button type="button" id="EditBoardGame" 
+                    name=` + gameName.replace(/ /g, '') + ` >`+ gameName +
+                    `</button>
+                </td> 
                 <td><input type="radio" name=`
                 + gameName.replace(/ /g, '') + ` data-col="1"/></td>
                 <td><input type="radio" name=`
                 + gameName.replace(/ /g, '') + ` data-col="2"/></td>
             </tr>`;
     }
-    submitNewGame(gameInput) {
-        if (gameInput == '') {
-            alert('Please submit a Game Name');
-            return;
-        };
+    renderNewGame(gameInput) {
         let template = this.renderGameRow(gameInput);
         $('#gametable').append(template);
-        this.games.push(gameInput);
-        localStorage.setItem('games', this.games);
-    }
+    };
     toggleVotingView() {
         $('[title="voting"]').toggle();
     };
