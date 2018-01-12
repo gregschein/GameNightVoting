@@ -101,6 +101,7 @@ function submitNewGame(gameInput) {
         alert('Game already exists');
         return;
     }
+    $('input[id="New Game"]').val('');
     PageViews.renderNewGame(gameInput);
     boardGameDetails(gameInput);
     PageViews.games.push(gameInput);

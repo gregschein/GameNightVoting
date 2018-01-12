@@ -25,13 +25,13 @@ function devStuff(command) {
                 'BoardGameDescription': 'Try to not starve',
             },
         };
-        boardGameDetails('Agricola');
-        $('#BoardGamePlayerCount').val(
-            gamesDeets.Agricola.BoardGamePlayerCount);
-        $('#BoardGamePlayTime').val(
-            gamesDeets.Agricola.BoardGamePlayTime);
-        $('#BoardGameDescription').val(
-            gamesDeets.Agricola.BoardGameDescription);
+        console.log(gamesDeets);
+        // boardGameDetails('Agricola');
+        // $('#BoardGamePlayerCount').val(
+        //     gamesDeets.Agricola.BoardGamePlayerCount);
+        // $('#BoardGamePlayTime').val(
+        //     gamesDeets.Agricola.BoardGamePlayTime);
+        // $('#BoardGameDescription').val(
+        //     gamesDeets.Agricola.BoardGameDescription);
     };
 };
-
