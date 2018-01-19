@@ -1,21 +1,32 @@
 {
-    "name": "gamenightvoting",
-    "version": "0.0.1",
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:gregschein/GameNightVoting.git"
-    },
-    "description": "Helps us stop wasting time deciding on a game during game nights.",
-    "scripts": {
-        "test": "jasmine"
-    },
-    "dependencies": {
-        "grunt": "^1.0.1",
-        "jasmine": "^2.8.0"
-    },
-    "devDependencies": {
-        "eslint": "^4.15.0",
-        "eslint-config-google": "^0.9.1",
-        "grunt-contrib-jasmine": "^1.1.0"
-    }
+  "name": "gamenightvoting",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gregschein/GameNightVoting.git"
+  },
+  "description": "Helps us stop wasting time deciding on a game during game nights.",
+  "scripts": {
+    "test": "jasmine",
+    "start": "http-server ./app -a localhost -p 8000 -c-1"
+  },
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "jasmine": "^2.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-config-google": "^0.9.1",
+    "grunt-contrib-jasmine": "^1.1.0"
+  },
+  "bugs": {
+    "url": "https://github.com/gregschein/GameNightVoting/issues"
+  },
+  "homepage": "https://github.com/gregschein/GameNightVoting#readme",
+  "main": ".eslintrc.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "author": "Greg Schein",
+  "license": "ISC"
 }
