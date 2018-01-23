@@ -9,16 +9,24 @@
           <td>{{game}}</td>
           <td><input type="radio" 
             ng-model="$ctrl.firstChoice" 
-            name="first{{game}}"
+            name="first"
             value="{{game}}"
-            ng-change="$ctrl.horizontalExclusive($ctrl.firstChoice, 'first')"></td>
+            ng-change="$ctrl.horizontalExclusive('first')"></td>
           <td><input type="radio" 
             ng-model="$ctrl.secondChoice" 
             name="second" 
             value="{{game}}"
-            ng-change="$ctrl.horizontalExclusive($ctrl.secondChoice, 'second')"></td>
+            ng-change="$ctrl.horizontalExclusive('second')"></td>
+      </tr>
+      <tr> 
+        <td><label for="New Game">New Game Suggestion </label></td>
+        <td colspan=2><input type="text" ng-model="$ctrl.newGameName" id="New Game">
+        <button ng-click='$ctrl.newGameSubmit()' id="New Game">Add</button></td>
+      </tr>
       </tr>
     </table>
     <div>{{$ctrl.firstChoice}} + {{$ctrl.secondChoice}}</div>
-    <button ng-click="$ctrl.horizontalExclusive('this', 'that')">test it</button>
+    <button ng-click="$ctrl.testButton()">test it</button>
+    
+  
 </div>

@@ -10,16 +10,21 @@ angular.
                 'agricola', 'spartacus', 'keyflower',
             ];
             this.firstChoice = 'agricola';
-            this.horizontalExclusive = function(row, column) {
+            this.horizontalExclusive = function(column) {
                 if (self.secondChoice == self.firstChoice) {
-                    self.firstChoice = '';
-                    self.secondChoice = '';
                     if (column == 'first') {
-                        self.firstChoice = row;
+                        self.secondChoice = '';
                     } else {
-                        self.secondChoice = row;
+                        self.firstChoice = '';
                     }
                 }
+            };
+            this.testButton = function() {
+                document.getElementById('gametable').append('yes');
+            };
+            this.newGameSubmit = function() {
+                this.games.push(this.newGameName);
+                this.newGameName = '';
             };
         },
 });
