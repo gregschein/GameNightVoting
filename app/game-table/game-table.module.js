@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('gameTable', []);
+angular.module('gameTable', ['gameDetails']);

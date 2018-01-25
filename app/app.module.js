@@ -3,4 +3,5 @@
 angular.module('GameNightVotingApp', [
     'playerLogin',
     'gameTable',
+    'gameDetails',
 ]);

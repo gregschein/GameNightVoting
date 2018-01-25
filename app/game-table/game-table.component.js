@@ -6,11 +6,14 @@ angular.
         templateUrl: 'game-table/game-table.template.html',
         controller: function GameTableController() {
             let self = this;
-            this.games = [
+            self.activeGame = '';
+            self.details = 'butts';
+            self.visible = false;
+            self.games = [
                 'agricola', 'spartacus', 'keyflower',
             ];
-            this.firstChoice = 'agricola';
-            this.horizontalExclusive = function(column) {
+            self.firstChoice = 'agricola';
+            self.horizontalExclusive = function(column) {
                 if (self.secondChoice == self.firstChoice) {
                     if (column == 'first') {
                         self.secondChoice = '';
@@ -19,12 +22,21 @@ angular.
                     }
                 }
             };
-            this.testButton = function() {
-                document.getElementById('gametable').append('yes');
+            self.testButton = function() {
+                self.name = 'yes';
             };
-            this.newGameSubmit = function() {
-                this.games.push(this.newGameName);
-                this.newGameName = '';
+            self.newGameSubmit = function() {
+                self.games.push(self.newGameName);
+                self.newGameName = '';
+            };
+            self.openGameDetails = function(gameName) {
+                // Submit the details of game in json form in future.
+                self.activeGame = gameName;
+                self.visible = true;
+            };
+            self.returnDetails = function(details) {
+                self.details = details;
+                self.visible = false;
             };
         },
 });

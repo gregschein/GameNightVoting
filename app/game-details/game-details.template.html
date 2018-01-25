@@ -1,0 +1,14 @@
+<div id="BoardGameDetails" style="white-space: pre-line" ng-switch="$ctrl.visible">
+    <span ng-switch-when="true">
+        <h4>Board Game Details</h4>
+        <label for="BoardGameTitle">Name</label>
+        <input type="text" id="BoardGameTitle" ng-value="$ctrl.name">
+        <label for="BoardGamePlayerCount">Player Count</label>
+        <input type="text" id="BoardGamePlayerCount" ng-value="$ctrl.playerCount">
+        <label for="BoardGamePlayTime">Play Time</label>
+        <input type="text" id="BoardGamePlayTime" ng-value="$ctrl.playTime">
+        <label for="BoardGameDescription">Description</label>
+        <textarea id="BoardGameDescription" cols=25 rows=4 ng-value="$ctrl.gameDescription"></textarea>
+        <button type="button" id="BoardGameSubmit" ng-click="$ctrl.onSubmit({details: $ctrl.name})">Submit</button>
+    </span>
+</div>
