@@ -4,9 +4,8 @@ angular.
     module('gameTable').
     component('gameTable', {
         templateUrl: 'game-table/game-table.template.html',
-        controller: function GameTableController() {
+        controller: function GameTableController($http) {
             let self = this;
-            self.activeGame = '';
             self.details = 'butts';
             self.visible = false;
             self.games = [
@@ -22,21 +21,35 @@ angular.
                     }
                 }
             };
-            self.testButton = function() {
-                self.name = 'yes';
+            self.vote = function() {
+                console.log('First: ' + self.firstChoice);
+                console.log('Second: ' + self.secondChoice);
             };
             self.newGameSubmit = function() {
+                if (self.games.includes(self.newGameName)) {
+                    alert('Game already exists in list');
+                    return;
+                };
                 self.games.push(self.newGameName);
+                self.openGameDetails(self.newGameName, 'new');
                 self.newGameName = '';
             };
-            self.openGameDetails = function(gameName) {
+            self.openGameDetails = function(gameName, age) {
                 // Submit the details of game in json form in future.
-                self.activeGame = gameName;
-                self.visible = true;
+                if (!self.visible) {
+                    self.age = age;
+                    self.activeGame = gameName;
+                    self.visible = true;
+                } else {
+                    alert('Please finish with the other game before opening a new one');
+                };
             };
             self.returnDetails = function(details) {
                 self.details = details;
                 self.visible = false;
+                if (!self.games.includes(self.details)) {
+                    self.games.push(self.details);
+                }
             };
         },
 });

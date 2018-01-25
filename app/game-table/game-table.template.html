@@ -6,7 +6,7 @@
         <th>Second Choice</th>
       </tr>
       <tr ng-repeat="game in $ctrl.games">
-          <td align="center"><button ng-click="$ctrl.openGameDetails(game)">{{game}}</button></td>
+          <td align="center"><button ng-click="$ctrl.openGameDetails(game, 'old')">{{game}}</button></td>
           <td><input type="radio" 
             ng-model="$ctrl.firstChoice" 
             name="first"
@@ -25,10 +25,10 @@
       </tr>
       </tr>
     </table>
-    <div>{{$ctrl.firstChoice}} + {{$ctrl.secondChoice}}</div>
-    <div>{{$ctrl.details}}</div>
-    <button ng-click="$ctrl.testButton()">test it</button>
-    <game-details name="$ctrl.activeGame" visible="$ctrl.visible" on-submit="$ctrl.returnDetails(details)"></game-details>
+    <!-- <div>{{$ctrl.firstChoice}} + {{$ctrl.secondChoice}}</div>
+    <div>{{$ctrl.details}}</div> -->
+    <button ng-click="$ctrl.vote()">Vote</button>
+    <game-details ng-if="$ctrl.visible" name="$ctrl.activeGame" age=$ctrl.age on-submit="$ctrl.returnDetails(details)"></game-details>
     
   
 </div>
