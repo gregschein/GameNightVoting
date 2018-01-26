@@ -25,7 +25,22 @@
   <script src="game-table/game-table.component.js"></script>
   <script src="game-details/game-details.module.js"></script>
   <script src="game-details/game-details.component.js"></script>
-
+  <script src="node_modules/firebase/firebase.js"></script>
+  <!-- Database Stuff -->
+  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBIG633dgKwX0IJ5i6cwUb2H4jrThqbaqQ",
+      authDomain: "gamenightvoting.firebaseapp.com",
+      databaseURL: "https://gamenightvoting.firebaseio.com",
+      projectId: "gamenightvoting",
+      storageBucket: "gamenightvoting.appspot.com",
+      messagingSenderId: "739325284180"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
