@@ -16,31 +16,23 @@
   <script src="js/dataStructures.js"></script>
   <script src="js/votePool.js"></script>
   <script src="js/scripts.js"></script>
+  <!-- Angular -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+<!-- AngularFire -->
+<script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+<!-- Firebase Simple Login -->
+<script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
   <!-- new stuff -->
-  <script src="bower_components/angular/angular.js"></script>
+  <script src="firebase.config.js"></script>
   <script src="app.module.js"></script>
   <script src="player-login/player-login.module.js"></script>
   <script src="player-login/player-login.component.js"></script>
   <script src="game-table/game-table.module.js"></script>
   <script src="game-table/game-table.component.js"></script>
   <script src="game-details/game-details.module.js"></script>
-  <script src="game-details/game-details.component.js"></script>
-  <script src="node_modules/firebase/firebase.js"></script>
-  <!-- Database Stuff -->
-  <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyBIG633dgKwX0IJ5i6cwUb2H4jrThqbaqQ",
-      authDomain: "gamenightvoting.firebaseapp.com",
-      databaseURL: "https://gamenightvoting.firebaseio.com",
-      projectId: "gamenightvoting",
-      storageBucket: "gamenightvoting.appspot.com",
-      messagingSenderId: "739325284180"
-    };
-    firebase.initializeApp(config);
-  </script>
-  <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
+  <script src="game-details/game-details.component.js"></script> 
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
