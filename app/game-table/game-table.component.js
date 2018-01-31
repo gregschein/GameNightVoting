@@ -4,9 +4,8 @@ angular.
     module('gameTable').
     component('gameTable', {
         templateUrl: 'game-table/game-table.template.html',
-        controller: function GameTableController($http) {
+        controller: function GameTableController($firebaseObject, $firebaseAuth) {
             let self = this;
-            self.details = 'butts';
             self.visible = false;
             self.games = [
                 'agricola', 'spartacus', 'keyflower',
@@ -20,6 +19,10 @@ angular.
                         self.firstChoice = '';
                     }
                 }
+                self.details = $firebaseObject(firebase.database().ref());
+                self.details.$loaded().then(function() {
+                    console.log(self.details['Games']);
+            });
             };
             self.vote = function() {
                 console.log('First: ' + self.firstChoice);

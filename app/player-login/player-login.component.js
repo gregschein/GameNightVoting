@@ -4,37 +4,26 @@ angular.
     module('playerLogin').
     component('playerLogin', {
         templateUrl: 'player-login/player-login.template.html',
-        controller: function PlayerLoginController(firebase, $firebaseObject) {
+        controller: function PlayerLoginController(firebase, $firebaseAuth) {
             // Initialize Firebase
             let self = this;
+            self.mode = 'signIn';
+            self.loginObj = $firebaseAuth();
             self.signIn = function() {
-                // let username = self.user.email;
-                // let password = self.user.password;
-                let username = 'gregschein@gmail.com';
-                let password = 'chester923';
-                let loginObj = new FirebaseSimpleLogin(function(error, user) {
-                    if (error) {
-                      console.log('Authentication error: ', error);
-                    } else if (user) {
-                      console.log('User ' + user.id + ' authenticated via the ' + user.provider + ' provider!');
-                    } else {
-                      console.log("User is logged out.")
-                    }
-                  });
-               loginObj.login('password', {
-                   email: username,
-                   password: password,
-               });
-                // loginObj.login('password', {
-                //     email: username,
-                //     password: password,
-                // })
-                // .then(function(user) {
-                //     alert('we gud');
-                // }, function(error) {
-                //     alert(error);
-                // });
+                let username = 'gregschein@gmail.com'; // self.user.email;
+                let password = 'chester923'; // self.user.password;
+                self.loginObj.$signInWithEmailAndPassword(username, password).then(function(firebaseUser) {
+                    console.log('Signed in as:', firebaseUser.uid);
+                }).catch(function(error) {
+                    console.error('Authentication failed:', error);
+                });
+                self.mode = 'signOut';
+                self.user.email = '';
+                self.user.password = '';
             };
-            self.signIn();
+            self.signOut = function() {
+                self.loginObj.$signOut();
+                self.mode = 'signIn';
+            };
         },
 });

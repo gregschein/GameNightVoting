@@ -1,10 +1,13 @@
-<div id="PlayerName">
-    <span id="PlayerNameButton">
-      <label for="Email">Email</label>
+<div id="PlayerName" ng-switch="$ctrl.mode">
+    <span id="PlayerSignIn" ng-switch-when="signIn">
+      <label for="Email">Emai</label>
       <input type="text" id="PlayerName" ng-model="$ctrl.user.email">
       <label for="PlayerName">Password</label>
-      <input type="text" id="PlayerName" ng-model="$ctrl.user.password" >
+      <input type="password" id="PlayerName" ng-model="$ctrl.user.password" >
       <button ng-click="$ctrl.signIn()" id="PlayerName">Log In</button>
     </span>
-    
+    <span id="PlayerSignOut" ng-switch-when="signOut">
+      <button ng-click="$ctrl.signOut()">Log Out</button>
+    </span>
+    {{$ctrl.user.email}}
 </div>
