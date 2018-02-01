@@ -7,10 +7,17 @@ angular.
         controller: function GameTableController($firebaseObject, $firebaseAuth) {
             let self = this;
             self.visible = false;
-            self.games = [
-                'agricola', 'spartacus', 'keyflower',
-            ];
-            self.firstChoice = 'agricola';
+            self.games = [];
+            self.authObj = $firebaseAuth();
+            self.$onInit = function() {
+                let ref = firebase.database().ref('Games');
+                let gamesObj = $firebaseObject(ref);
+                gamesObj.$loaded().then(function() {
+                    angular.forEach(gamesObj, function(key, value) {
+                        self.games.push(value);
+                    });
+                });
+            };
             self.horizontalExclusive = function(column) {
                 if (self.secondChoice == self.firstChoice) {
                     if (column == 'first') {
@@ -19,10 +26,6 @@ angular.
                         self.firstChoice = '';
                     }
                 }
-                self.details = $firebaseObject(firebase.database().ref());
-                self.details.$loaded().then(function() {
-                    console.log(self.details['Games']);
-            });
             };
             self.vote = function() {
                 console.log('First: ' + self.firstChoice);
@@ -38,14 +41,18 @@ angular.
                 self.newGameName = '';
             };
             self.openGameDetails = function(gameName, age) {
-                // Submit the details of game in json form in future.
-                if (!self.visible) {
-                    self.age = age;
-                    self.activeGame = gameName;
-                    self.visible = true;
+                let firebaseUser = self.authObj.$getAuth();
+                if (firebaseUser) {
+                    if (!self.visible) {
+                        self.age = age;
+                        self.activeGame = gameName;
+                        self.visible = true;
+                    } else {
+                        alert('Please finish with the other game before opening a new one');
+                    };
                 } else {
-                    alert('Please finish with the other game before opening a new one');
-                };
+                    alert('Please log in first');
+                }
             };
             self.returnDetails = function(details) {
                 self.details = details;

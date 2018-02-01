@@ -10,16 +10,22 @@ angular.
             self.mode = 'signIn';
             self.loginObj = $firebaseAuth();
             self.signIn = function() {
-                let username = 'gregschein@gmail.com'; // self.user.email;
-                let password = 'chester923'; // self.user.password;
-                self.loginObj.$signInWithEmailAndPassword(username, password).then(function(firebaseUser) {
-                    console.log('Signed in as:', firebaseUser.uid);
+                // let username = this.user.email;
+                // let password = this.user.password;
+                // self.loginObj.$signInWithEmailAndPassword(username, password).then(function(firebaseUser) {
+                //     console.log('Signed in as:', firebaseUser.uid);
+                // }).catch(function(error) {
+                //     console.error('Authentication failed:', error);
+                // });
+                
+                // self.user.email = '';
+                // self.user.password = '';
+                self.loginObj.$signInWithPopup('google').then(function(result) {
+                    console.log('Signed in as:', result.uid);
+                    self.mode = 'signOut';
                 }).catch(function(error) {
                     console.error('Authentication failed:', error);
                 });
-                self.mode = 'signOut';
-                self.user.email = '';
-                self.user.password = '';
             };
             self.signOut = function() {
                 self.loginObj.$signOut();

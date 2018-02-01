@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('gameDetails', []);
+angular.module('gameDetails', ['firebase']);

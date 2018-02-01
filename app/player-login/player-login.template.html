@@ -1,6 +1,6 @@
 <div id="PlayerName" ng-switch="$ctrl.mode">
     <span id="PlayerSignIn" ng-switch-when="signIn">
-      <label for="Email">Emai</label>
+      <label for="Email">Email</label>
       <input type="text" id="PlayerName" ng-model="$ctrl.user.email">
       <label for="PlayerName">Password</label>
       <input type="password" id="PlayerName" ng-model="$ctrl.user.password" >
@@ -9,5 +9,4 @@
     <span id="PlayerSignOut" ng-switch-when="signOut">
       <button ng-click="$ctrl.signOut()">Log Out</button>
     </span>
-    {{$ctrl.user.email}}
 </div>
