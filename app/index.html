@@ -1,30 +1,25 @@
 <!doctype html>
 
-<html lang="en" ng-app="GameNightVotingApp">
+<html lang="en" ng-app="GameNightVotingApp" ng-controller='mainCtrl'>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <title>Game Night Choice</title>
   <meta name="description" content="Stupid little app">
   <meta name="author" content="Some idyit">
+<!-- style -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="app.css">
 
-  <link rel="stylesheet" href="app.css"/>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="js/dev.js"></script>
-  <script src="js/views.js"></script>
-  <script src="js/dataStructures.js"></script>
-  <script src="js/votePool.js"></script>
-  <script src="js/scripts.js"></script>
   <!-- Angular -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
 <!-- AngularFire -->
 <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
-<!-- Firebase Simple Login -->
-<script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
-  <!-- new stuff -->
+<!-- new stuff -->
   <script src="firebase.config.js"></script>
   <script src="app.module.js"></script>
   <script src="player-login/player-login.module.js"></script>
@@ -37,11 +32,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
 </head>
-<style>
-
-</style>
 <body>
-  <player-login></player-login>
-  <game-table></game-table>
+  <a href='#!/login'>Login</a>
+  <a href='#!/404'>404</a>
+  <a href='#!/vote'>Vote</a>
+  <a href='/'>Main</a>
+  {{authObj}}
+  {{currentUser}}
+  <div ng-view>
+  </div>
 </body>
 </html>

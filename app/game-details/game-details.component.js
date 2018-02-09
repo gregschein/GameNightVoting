@@ -9,37 +9,43 @@ angular.
             age: '<',
             onSubmit: '&',
         },
-        controller: function GameDetailsController($http, $firebaseObject) {
+        controller: function GameDetailsController($firebaseObject, $firebaseArray) {
             let self = this;
             self.$onInit = function() {
                 if (self.age =='old') {
-                    // $http.get('games/'+self.name+'.json').
-                    //     then(function(response) {
-                    //         self.gameDeets = response.data;
-                    // }, function errorCallBack(response) {
-                    //     console.log('shit fucked');
-                    // });
                     let ref = firebase.database().ref('Games').child(self.name);
-                    let obj = $firebaseObject(ref);
-                    obj.$loaded().then(function() {
-                        self.name = obj['Name'];
-                        self.playerCount = obj['PlayerCount'];
-                        self.playTime = obj['PlayTime'];
-                        self.description = obj['Description'];
-                    //    angular.forEach(obj, function(value, key) {
-                    //       console.log(key, value);
-                    //    });
-                     });
+                    self.obj = $firebaseObject(ref);
+                    self.obj.$bindTo(this, 'self.details').then(function() {
+                        console.log(self.details);
+                    });
+                    // self.name = self.obj['Name'];
+                    // self.playerCount = self.obj['PlayerCount'];
+                    // self.playTime = self.obj['PlayTime'];
+                    // self.description = self.obj['Description'];
                 } else {
-                    self.gameDeets = {'Name': self.name};
+                   let gameData = {};
+                    let ref = firebase.database().ref('Games');
+                    let newEntry = $firebaseArray(ref);
+                    newEntry.$add({name: self.name});
                 }
             };
-            self.openDetails = function() {
-                // make details slide in from right
-            };
             self.submitDetails = function() {
-                // close details, and save data somehow
-                self.onSubmit({name: self.gameDeets.Name});
+                if (self.age == 'new') {
+                    let gameData = {};
+                    let ref = firebase.database().ref('Games');
+                    let newEntry = $firebaseArray(ref);
+                    console.log(newEntry);
+                }
+                // self.obj['Name'] = self.name;
+                // self.obj['PlayerCount'] = self.playerCount;
+                // self.obj['PlayTime'] = self.playTime;
+                // self.obj['Description'] = self.description;
+                self.obj.$save().then(function(ref) {
+                    ref.key === self.obj.$id;
+                }, function(error) {
+                    console.log(error);
+                });
+                self.onSubmit();
             };
         },
 });

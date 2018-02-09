@@ -1,9 +1,13 @@
-<div id="PlayerName" ng-switch="$ctrl.mode">
+<div class='container' id="PlayerName" ng-switch="$ctrl.mode">
     <span id="PlayerSignIn" ng-switch-when="signIn">
       <label for="Email">Email</label>
+      <br>
       <input type="text" id="PlayerName" ng-model="$ctrl.user.email">
+      <br>
       <label for="PlayerName">Password</label>
-      <input type="password" id="PlayerName" ng-model="$ctrl.user.password" >
+      <br>
+      <input type="password" id="PlayerName" ng-model="$ctrl.user.password">
+      <br>
       <button ng-click="$ctrl.signIn()" id="PlayerName">Log In</button>
     </span>
     <span id="PlayerSignOut" ng-switch-when="signOut">

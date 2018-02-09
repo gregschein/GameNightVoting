@@ -2,5 +2,14 @@ table, th, td {
     border: 1px solid black;
 }
 
-game-details { display:block;
+body {
+    background-image: url('boardgamebackground.jpg');
+}
+
+.div {
+    background: white;
+}
+
+game-details { 
+    display:block;
 }

@@ -6,10 +6,10 @@ angular.
         templateUrl: 'game-table/game-table.template.html',
         controller: function GameTableController($firebaseObject, $firebaseAuth) {
             let self = this;
-            self.visible = false;
             self.games = [];
             self.authObj = $firebaseAuth();
             self.$onInit = function() {
+                try {
                 let ref = firebase.database().ref('Games');
                 let gamesObj = $firebaseObject(ref);
                 gamesObj.$loaded().then(function() {
@@ -17,6 +17,9 @@ angular.
                         self.games.push(value);
                     });
                 });
+                } catch (err) {
+                    alert(err);
+                }
             };
             self.horizontalExclusive = function(column) {
                 if (self.secondChoice == self.firstChoice) {
@@ -54,12 +57,8 @@ angular.
                     alert('Please log in first');
                 }
             };
-            self.returnDetails = function(details) {
-                self.details = details;
+            self.returnDetails = function() {
                 self.visible = false;
-                if (!self.games.includes(self.details)) {
-                    self.games.push(self.details);
-                }
             };
         },
 });
