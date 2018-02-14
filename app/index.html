@@ -24,10 +24,15 @@
   <script src="app.module.js"></script>
   <script src="player-login/player-login.module.js"></script>
   <script src="player-login/player-login.component.js"></script>
-  <script src="game-table/game-table.module.js"></script>
-  <script src="game-table/game-table.component.js"></script>
-  <script src="game-details/game-details.module.js"></script>
-  <script src="game-details/game-details.component.js"></script> 
+  <!-- Vote Route -->
+  <script src="vote/vote.module.js"></script>
+  <script src="vote/vote.component.js"></script>
+  <script src="vote/game-table/game-table.module.js"></script>
+  <script src="vote/game-table/game-table.component.js"></script>
+  <script src="vote/game-details/game-details.module.js"></script>
+  <script src="vote/game-details/game-details.component.js"></script> 
+  <script src="vote/new-game/new-game.module.js"></script>
+  <script src="vote/new-game/new-game.component.js"></script>
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
@@ -37,8 +42,6 @@
   <a href='#!/404'>404</a>
   <a href='#!/vote'>Vote</a>
   <a href='/'>Main</a>
-  {{authObj}}
-  {{currentUser}}
   <div ng-view>
   </div>
 </body>

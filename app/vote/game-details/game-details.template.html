@@ -1,0 +1,14 @@
+<div id="BoardGameDetails" style="white-space: pre-line">
+    <span>
+        <h4>Board Game Details</h4>
+        <label for="BoardGameTitle">Name</label>
+        {{$ctrl.details['Name']}}
+        <label for="BoardGamePlayerCount">Player Count</label>
+        <input type="text" id="BoardGamePlayerCount" ng-model="$ctrl.details['PlayerCount']">
+        <label for="BoardGamePlayTime">Play Time</label>
+        <input type="text" id="BoardGamePlayTime" ng-model="$ctrl.details['PlayTime']">
+        <label for="BoardGameDescription">Description</label>
+        <textarea id="BoardGameDescription" cols=25 rows=4 ng-model="$ctrl.details['Description']"></textarea>
+        <button ng-click="$ctrl.close()">Submit</button>
+    </span>
+</div>

@@ -1,0 +1,15 @@
+<!-- <div>
+        <div ng-controller='VoteController' style='background:white; display: inline-block' >
+        <game-table games='games' name='name'></game-table>
+        <new-game new-game-name='newGameName' new-game-submit=newGameSubmit()></new-game>
+        <game-details ng-if="visible"></game-details>
+        <button ng-click=getDetails()>test</button>
+</div> -->
+<div style='background:white; display: inline-block'>
+    {{$ctrl.chosengame}}
+    <game-table games='$ctrl.games' votes='$ctrl.votes' choose='$ctrl.openGameDetails'></game-table>
+    <new-game save-new-game='$ctrl.saveNewGame'></new-game>
+    <br>
+    <button ng-click=$ctrl.vote()>Vote</button>
+    <game-details ng-if='$ctrl.chosenGame' details='$ctrl.games[$ctrl.chosenGame]' close='$ctrl.closeGameDetails'></game-details>
+</div>

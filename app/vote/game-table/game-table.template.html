@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <table id="gametable" title="voting">
+      <tr>
+        <th>Game Name</th>
+        <th>First Choice</th>
+        <th>Second Choice</th>
+      </tr>
+      <tr ng-repeat="game in $ctrl.games">
+          <td align="center"><button ng-click="$ctrl.choose(game['Name'])">{{game['Name']}}</button></td>
+          <td><input type="radio" 
+            ng-model="$ctrl.firstChoice" 
+            name="first"
+            value="{{game['Name']}}"
+            ng-change="$ctrl.horizontalExclusive('first')"></td>
+          <td><input type="radio" 
+            ng-model="$ctrl.secondChoice" 
+            name="second" 
+            value="{{game['Name']}}"
+            ng-change="$ctrl.horizontalExclusive('second')"></td>
+      </tr>
+    </table>
+</div>

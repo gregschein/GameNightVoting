@@ -3,9 +3,11 @@
 firebase.initializeApp(config);
 
 let app = angular.module('GameNightVotingApp', [
+    'vote',
     'playerLogin',
     'gameTable',
     'gameDetails',
+    'newGame',
     'firebase',
     'ngRoute',
 ])
@@ -18,7 +20,7 @@ let app = angular.module('GameNightVotingApp', [
             templateUrl: 'views/login.html',
         })
         .when('/vote', {
-            templateUrl: 'views/vote.html',
+            template: '<vote></vote>',
         })
         .otherwise({
             templateUrl: 'views/main.html',
@@ -27,15 +29,10 @@ let app = angular.module('GameNightVotingApp', [
 
 
 app.controller('mainCtrl', function($scope, $firebaseAuth) {
-    $scope.something = 'test';
-    $scope.ref = firebase.database().ref();
-    let authObj = $firebaseAuth();
-    $scope.currentUser = authObj.$getAuth();
-    $scope.visible = true;
-    $scope.activeGame = 'Nothin';
+    // $scope.something = 'test';
+    // $scope.ref = firebase.database().ref();
+    // let authObj = $firebaseAuth();
+    // $scope.currentUser = authObj.$getAuth();
+    // $scope.visible = true;
 });
 
-app.controller('VoteController', function($scope) {
-    $scope.something = 'in vote ctrl';
-    $scope.gameList = [];
-});
