@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  <h2>Voting for {{$ctrl.date}}</h2>
     <table id="gametable" title="voting">
       <tr>
         <th>Game Name</th>
@@ -6,7 +7,7 @@
         <th>Second Choice</th>
       </tr>
       <tr ng-repeat="game in $ctrl.games">
-          <td align="center"><button ng-click="$ctrl.choose(game['Name'])">{{game['Name']}}</button></td>
+          <td align="center"><button class='btn' ng-click="$ctrl.choose(game['Name'])">{{game['Name']}}</button></td>
           <td><input type="radio" 
             ng-model="$ctrl.firstChoice" 
             name="first"
