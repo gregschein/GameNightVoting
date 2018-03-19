@@ -27,29 +27,40 @@ angular.
                 let totalDate = dd+mm+yyyy;
                 return totalDate;
             };
-            self.gameNightDate = self.getNextGameNight();
             self.vote = function() {
                 if (self.votes == undefined) {
                     alert('Please select your choices of games');
                     return;
                 };
-                let firstVotes = self.votePool[self.gameNightDate]['First Choice'];
-                if (Object.keys(firstVotes).includes(self.votes[0])) {
-                    firstVotes[self.votes[0]]++;
-                    self.votePool.$save();
+                self.currentUser = firebase.auth().currentUser;
+                let voter = {};
+                        voter[self.currentUser.uid] = self.currentUser.displayName;
+                        self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
+                if (Object.keys(self.votePool[self.gameNightDate]['Voted']).includes(self.currentUser.uid)) {
+                    alert('You already voted son');
+                    return;
                 } else {
-                    let voteEntry = {};
-                    voteEntry[self.votes[0]] = 1;
-                    self.ref.child('Votes/'+self.gameNightDate+'/First Choice').update(voteEntry);
-                };
-                let secondVotes = self.votePool[self.gameNightDate]['Second Choice'];
-                if (Object.keys(secondVotes).includes(self.votes[1])) {
-                    secondVotes[self.votes[1]]++;
-                    self.votePool.$save();
-                } else {
-                    let voteEntry = {};
-                    voteEntry[self.votes[1]] = 1;
-                    self.ref.child('Votes/'+self.gameNightDate+'/Second Choice').update(voteEntry);
+                        let firstVotes = self.votePool[self.gameNightDate]['First Choice'];
+                        if (Object.keys(firstVotes).includes(self.votes[0])) {
+                            firstVotes[self.votes[0]]++;
+                            self.votePool.$save();
+                        } else {
+                            let voteEntry = {};
+                            voteEntry[self.votes[0]] = 1;
+                            self.ref.child('Votes/'+self.gameNightDate+'/First Choice').update(voteEntry);
+                        };
+                        let secondVotes = self.votePool[self.gameNightDate]['Second Choice'];
+                        if (Object.keys(secondVotes).includes(self.votes[1])) {
+                            secondVotes[self.votes[1]]++;
+                            self.votePool.$save();
+                        } else {
+                            let voteEntry = {};
+                            voteEntry[self.votes[1]] = 1;
+                            self.ref.child('Votes/'+self.gameNightDate+'/Second Choice').update(voteEntry);
+                        }
+                        let voter = {};
+                        voter[self.currentUser.uid] = self.currentUser.displayName;
+                        self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
                 }
             };
             self.openGameDetails = function(name) {

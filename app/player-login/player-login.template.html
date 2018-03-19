@@ -9,8 +9,16 @@
       <input type="password" id="PlayerName" ng-model="$ctrl.user.password">
       <br>
       <button ng-click="$ctrl.signIn()" id="PlayerName">Log In</button>
+      <br>
+      <button class="btn btn-primary" ng-click=$ctrl.signIn()>
+        <img alt="Google" src="//production.cdmycdn.com/webpack/44054fb2b758a8db1cece67a2acbe209.svg"> Sign in with Google
+      </button>
     </span>
     <span id="PlayerSignOut" ng-switch-when="signOut">
       <button ng-click="$ctrl.signOut()">Log Out</button>
     </span>
 </div>
+
+
+
+{{$ctrl.auth}}

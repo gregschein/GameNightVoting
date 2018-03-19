@@ -52,16 +52,17 @@ app.controller('mainCtrl', function($scope, $firebaseAuth, $firebaseObject) {
     let gameNightDate = getNextGameNight();
     let ref = firebase.database().ref();
     let votePool = $firebaseObject(ref.child('Votes'));
-    if (votePool[gameNightDate]) {
-        console.log('exists');
-    } else {
-        let date = {};
-        date[gameNightDate] = {
-            'First Choice': {init: 0},
-            'Second Choice': {init: 0},
+    votePool.$loaded().then(function() {
+        if (votePool[gameNightDate] == undefined) {
+            let date = {};
+            date[gameNightDate] = {
+                'First Choice': {init: 0},
+                'Second Choice': {init: 0},
+                'Voted': ['init'],
+            };
+            ref.child('Votes').update(date);
         };
-        ref.child('Votes').update(date);
-    };
+    });
     $scope.button = 1;
     $scope.change = function() {
         $scope.button++;

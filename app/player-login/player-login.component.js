@@ -21,7 +21,7 @@ angular.
                 // self.user.email = '';
                 // self.user.password = '';
                 self.loginObj.$signInWithPopup('google').then(function(result) {
-                    console.log('Signed in as:', result.uid);
+                    console.log('Signed in as:', result.user.uid);
                     self.mode = 'signOut';
                 }).catch(function(error) {
                     console.error('Authentication failed:', error);
