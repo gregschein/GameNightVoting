@@ -26,13 +26,8 @@ let app = angular.module('GameNightVotingApp', [
         .otherwise({
             templateUrl: 'views/main.html',
         });
-}]).
-component('mainComponent', {
-    templateURL: 'index.html',
-    controller: function MainControlller($firebaseAuth) {
-        self.authObj = $firebaseAuth();
-    },
-});
+}]);
+
 app.controller('mainCtrl', function($scope, $firebaseAuth, $firebaseObject) {
     let getNextGameNight = function() {
         let gameDay = new Date();
@@ -54,6 +49,10 @@ app.controller('mainCtrl', function($scope, $firebaseAuth, $firebaseObject) {
     let votePool = $firebaseObject(ref.child('Votes'));
     votePool.$loaded().then(function() {
         if (votePool[gameNightDate] == undefined) {
+            initGameNight();
+        };
+    });
+    let initGameNight = function() {
             let date = {};
             date[gameNightDate] = {
                 'First Choice': {init: 0},
@@ -61,8 +60,11 @@ app.controller('mainCtrl', function($scope, $firebaseAuth, $firebaseObject) {
                 'Voted': ['init'],
             };
             ref.child('Votes').update(date);
-        };
-    });
+    };
+    $scope.resetVotePool = function() {
+        console.log('button pressed');
+        initGameNight();
+    };
     $scope.button = 1;
     $scope.change = function() {
         $scope.button++;

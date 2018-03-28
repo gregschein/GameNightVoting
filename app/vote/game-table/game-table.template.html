@@ -6,7 +6,7 @@
         <th>First Choice</th>
         <th>Second Choice</th>
       </tr>
-      <tr ng-repeat="game in $ctrl.games">
+      <tr ng-repeat="game in $ctrl.games | filter:$ctrl.query">
           <td align="center"><button class='btn' ng-click="$ctrl.choose(game['Name'])">{{game['Name']}}</button></td>
           <td><input type="radio" 
             ng-model="$ctrl.firstChoice" 
@@ -20,4 +20,6 @@
             ng-change="$ctrl.horizontalExclusive('second')"></td>
       </tr>
     </table>
+    Search: <input ng-model="$ctrl.query"/>
+    
 </div>

@@ -8,7 +8,14 @@ angular.
             let self = this;
             self.$onInit = function() {
                 self.ref = firebase.database().ref();
-                self.games = $firebaseObject(self.ref.child('Games'));
+                self.gamesObj = $firebaseObject(self.ref.child('Games'));
+                self.gamesObj.$loaded().then(function() {
+                    self.games = [];
+                    angular.forEach(self.gamesObj, function(game) {
+                        self.games.push(game);
+                        console.log(self.games);
+                    });
+                });
                 self.votePool = $firebaseObject(self.ref.child('Votes'));
                 self.gameNightDate = self.getNextGameNight();
             };
@@ -27,15 +34,15 @@ angular.
                 let totalDate = dd+mm+yyyy;
                 return totalDate;
             };
+            self.currentUser = firebase.auth().currentUser;
             self.vote = function() {
                 if (self.votes == undefined) {
                     alert('Please select your choices of games');
                     return;
                 };
-                self.currentUser = firebase.auth().currentUser;
                 let voter = {};
-                        voter[self.currentUser.uid] = self.currentUser.displayName;
-                        self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
+                voter[self.currentUser.uid] = self.currentUser.displayName;
+                self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
                 if (Object.keys(self.votePool[self.gameNightDate]['Voted']).includes(self.currentUser.uid)) {
                     alert('You already voted son');
                     return;
@@ -71,7 +78,7 @@ angular.
                 }
             };
             self.closeGameDetails = function() {
-                self.games.$save();
+                self.gamesObj.$save();
                 self.chosenGame = null;
             };
             self.saveNewGame = function(name) {
