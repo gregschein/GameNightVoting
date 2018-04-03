@@ -1,6 +1,6 @@
 <div class='container' id="PlayerName" ng-switch="$ctrl.mode">
     <span id="PlayerSignIn" ng-switch-when="signIn">
-      <label for="Email">Email</label>
+      <!-- <label for="Email">Email</label>
       <br>
       <input type="text" id="PlayerName" ng-model="$ctrl.user.email">
       <br>
@@ -9,7 +9,7 @@
       <input type="password" id="PlayerName" ng-model="$ctrl.user.password">
       <br>
       <button ng-click="$ctrl.signIn()" id="PlayerName">Log In</button>
-      <br>
+      <br> -->
       <button class="btn btn-primary" ng-click=$ctrl.signIn()>
         <img alt="Google" src="//production.cdmycdn.com/webpack/44054fb2b758a8db1cece67a2acbe209.svg"> Sign in with Google
       </button>
@@ -18,7 +18,3 @@
       <button ng-click="$ctrl.signOut()">Log Out</button>
     </span>
 </div>
-
-
-
-{{$ctrl.auth}}

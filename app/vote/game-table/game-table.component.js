@@ -5,7 +5,7 @@ angular.
     component('gameTable', {
         templateUrl: 'vote/game-table/game-table.template.html',
         bindings: {
-            games: '<',
+            games: '=',
             votes: '=',
             choose: '<',
         },
@@ -14,9 +14,9 @@ angular.
             self.horizontalExclusive = function(column) {
                 if (self.secondChoice == self.firstChoice) {
                     if (column == 'first') {
-                        self.secondChoice = '';
+                        self.secondChoice = undefined;
                     } else {
-                        self.firstChoice = '';
+                        self.firstChoice = undefined;
                     }
                 }
                 self.votes = [self.firstChoice, self.secondChoice];

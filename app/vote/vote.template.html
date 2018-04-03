@@ -1,8 +1,8 @@
 <div>
-    {{$ctrl.currentUser}}
     <game-table games='$ctrl.games' votes='$ctrl.votes' choose='$ctrl.openGameDetails'></game-table>
     <new-game save-new-game='$ctrl.saveNewGame'></new-game>
     <br>
     <button ng-click=$ctrl.vote()>Vote</button>
+    <button ng-click=$ctrl.resolvePool()>Resolve</button>
     <game-details ng-if='$ctrl.chosenGame' details='$ctrl.gamesObj[$ctrl.chosenGame]' close='$ctrl.closeGameDetails'></game-details>
 </div>

@@ -13,10 +13,11 @@ angular.
                     self.games = [];
                     angular.forEach(self.gamesObj, function(game) {
                         self.games.push(game);
-                        console.log(self.games);
                     });
                 });
-                self.votePool = $firebaseObject(self.ref.child('Votes'));
+                self.ref.child('Games').once('value', function(data) {
+                    console.log(Object.keys(data.val()));
+                });
                 self.gameNightDate = self.getNextGameNight();
             };
             self.getNextGameNight = function() {
@@ -31,43 +32,64 @@ angular.
                     mm = '0'+mm;
                 };
                 let yyyy = gameDay.getFullYear();
-                let totalDate = dd+mm+yyyy;
+                let totalDate = yyyy+mm+dd;
                 return totalDate;
             };
-            self.currentUser = firebase.auth().currentUser;
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    self.currentUser = user;
+                } else {
+                    self.currentUser = null;
+                }
+            });
             self.vote = function() {
                 if (self.votes == undefined) {
                     alert('Please select your choices of games');
                     return;
                 };
-                let voter = {};
-                voter[self.currentUser.uid] = self.currentUser.displayName;
-                self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
-                if (Object.keys(self.votePool[self.gameNightDate]['Voted']).includes(self.currentUser.uid)) {
+                
+                if (false) {
                     alert('You already voted son');
                     return;
                 } else {
-                        let firstVotes = self.votePool[self.gameNightDate]['First Choice'];
-                        if (Object.keys(firstVotes).includes(self.votes[0])) {
-                            firstVotes[self.votes[0]]++;
-                            self.votePool.$save();
-                        } else {
-                            let voteEntry = {};
-                            voteEntry[self.votes[0]] = 1;
-                            self.ref.child('Votes/'+self.gameNightDate+'/First Choice').update(voteEntry);
-                        };
-                        let secondVotes = self.votePool[self.gameNightDate]['Second Choice'];
-                        if (Object.keys(secondVotes).includes(self.votes[1])) {
-                            secondVotes[self.votes[1]]++;
-                            self.votePool.$save();
-                        } else {
-                            let voteEntry = {};
-                            voteEntry[self.votes[1]] = 1;
-                            self.ref.child('Votes/'+self.gameNightDate+'/Second Choice').update(voteEntry);
-                        }
-                        let voter = {};
-                        voter[self.currentUser.uid] = self.currentUser.displayName;
-                        self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
+                    if (self.votes[0] !== undefined) {
+                        self.ref.child('Votes/'+self.gameNightDate+'/First Choice').once('value', function(data) {
+                            self.voteEntry = {};
+                            try {
+                                if (self.votes[0] in data.val()) {
+                                    self.voteEntry[self.votes[0]] = data.val()[self.votes[0]]+1;
+                                } else {
+                                    self.voteEntry[self.votes[0]] = 1;
+                                };
+                            } catch (error) {
+                                console.log(error);
+                                self.voteEntry[self.votes[0]] = 1;
+                            }
+                            self.ref.child('Votes/'+self.gameNightDate+'/First Choice').update(self.voteEntry);
+                        });
+                    } else {
+                        alert('Please choose your preferred game to play. (Second Choice is optional)');
+                        return;
+                    };
+                    if (self.votes[1] !== undefined) {
+                        self.ref.child('Votes/'+self.gameNightDate+'/Second Choice').once('value', function(data) {
+                            self.voteEntry = {};
+                            try {
+                                if (self.votes[1] in data.val()) {
+                                    self.voteEntry[self.votes[1]] = data.val()[self.votes[1]]+1;
+                                } else {
+                                    self.voteEntry[self.votes[1]] = 1;
+                                };
+                            } catch (error) {
+                                console.log(error);
+                                self.voteEntry[self.votes[1]] = 1;
+                            }
+                            self.ref.child('Votes/'+self.gameNightDate+'/Second Choice').update(self.voteEntry);
+                        });
+                    };
+                    let voter = {};
+                    voter[self.currentUser.uid] = self.currentUser.displayName;
+                    self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
                 }
             };
             self.openGameDetails = function(name) {
@@ -89,6 +111,7 @@ angular.
                     PlayerCount: '',
                     Description: '',
                 };
+                console.log(self.currentUser);
                 gameEntry[name] = entryDetails;
                 self.ref.child('Games').update(gameEntry);
             };

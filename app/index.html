@@ -42,11 +42,14 @@
   <![endif]-->
 </head>
 <body>
-  <div style='background-color:rgba(255, 255, 255, 0.8); display: inline-block'>
+  <div style='background-color:rgba(255, 255, 255, 0.8); display: inline-block' layout="row" layout-align="space-between center">
       <a href='#!/login'>Login</a>
       <a href='#!/404'>404</a>
       <a href='#!/vote'>Vote</a>
       <a href='/'>Main</a>
+      <div ng-switch="loggedIn">
+        <div ng-switch-default>Not Logged In</div>
+        <div ng-switch-when='true'>Logged in as {{currentUser}}</div>
   </div>
   <br>
   <button class="btn btn-primary" ng-model="button" ng-click=resetVotePool()>reset</button>
