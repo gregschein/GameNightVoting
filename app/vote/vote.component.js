@@ -16,7 +16,7 @@ angular.
                     });
                 });
                 self.ref.child('Games').once('value', function(data) {
-                    console.log(Object.keys(data.val()));
+                    // console.log(Object.keys(data.val()));
                 });
                 self.gameNightDate = self.getNextGameNight();
             };

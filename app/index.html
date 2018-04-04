@@ -41,23 +41,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
 </head>
-<body>
-  <div style='background-color:rgba(255, 255, 255, 0.8); display: inline-block' layout="row" layout-align="space-between center">
-      <a href='#!/login'>Login</a>
-      <a href='#!/404'>404</a>
-      <a href='#!/vote'>Vote</a>
-      <a href='/'>Main</a>
-      <div ng-switch="loggedIn">
-        <div ng-switch-default>Not Logged In</div>
-        <div ng-switch-when='true'>Logged in as {{currentUser}}</div>
+<!-- style='background-color:rgba(255, 255, 255, 0.8); display: inline-block' layout="row" layout-align="space-between center" -->
+<div class="nav"> 
+    <!-- <a href='#!/login'>Login</a> -->
+    <a href='#!/404'>404</a>
+    <a href='#!/vote'>Vote</a>
+    <a href='/'>Main</a>
+    <span style='float: right'><player-login></player-login></span>
+    <div class='authState' ng-switch-when='none' align='center'>
+        <div ng-switch="loggedIn">
+          <div ng-switch-default>Not Logged In</div>
+          <div ng-switch-when='true'>Logged in as {{currentUser}}</div>
+        </div>
+    </div>
+</div>
+<body ng-switch='winners'>
+    <div ng-view style='background:rgba(255, 255, 255, 0.8); display: inline-block'></div>
   </div>
-  <br>
-  <button class="btn btn-primary" ng-model="button" ng-click=resetVotePool()>reset</button>
-  <br>
-  <!-- <div>
-    <button class="btn btn-primary" ng-model="button" ng-click=change()>{{button}}</button>
-  </div> -->
-  <div ng-view style='background:rgba(255, 255, 255, 0.8); display: inline-block'>
-  </div>
+  <div ng-switch-default style='background-color:aliceblue'>Hello{{winners}}</div>
 </body>
 </html>
