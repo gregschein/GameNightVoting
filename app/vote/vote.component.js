@@ -8,16 +8,6 @@ angular.
             let self = this;
             self.$onInit = function() {
                 self.ref = firebase.database().ref();
-                self.gamesObj = $firebaseObject(self.ref.child('Games'));
-                self.gamesObj.$loaded().then(function() {
-                    self.games = [];
-                    angular.forEach(self.gamesObj, function(game) {
-                        self.games.push(game);
-                    });
-                });
-                self.ref.child('Games').once('value', function(data) {
-                    // console.log(Object.keys(data.val()));
-                });
                 self.gameNightDate = self.getNextGameNight();
             };
             self.getNextGameNight = function() {
@@ -47,7 +37,6 @@ angular.
                     alert('Please select your choices of games');
                     return;
                 };
-                
                 if (false) {
                     alert('You already voted son');
                     return;
@@ -111,7 +100,6 @@ angular.
                     PlayerCount: '',
                     Description: '',
                 };
-                console.log(self.currentUser);
                 gameEntry[name] = entryDetails;
                 self.ref.child('Games').update(gameEntry);
             };

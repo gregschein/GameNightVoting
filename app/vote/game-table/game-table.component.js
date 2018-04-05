@@ -5,12 +5,14 @@ angular.
     component('gameTable', {
         templateUrl: 'vote/game-table/game-table.template.html',
         bindings: {
-            games: '=',
             votes: '=',
             choose: '<',
         },
-        controller: function GameTableController($firebaseObject, $firebaseAuth) {
+        controller: function GameTableController($firebaseAuth, $firebaseObject) {
             let self = this;
+            self.$onInit = function() {
+                console.log('test');
+            };
             self.horizontalExclusive = function(column) {
                 if (self.secondChoice == self.firstChoice) {
                     if (column == 'first') {
@@ -37,17 +39,20 @@ angular.
                 return totalDate;
             };
             self.date = getNextGameNight();
-            // self.openDetails = function(clickedName) {
-            //     self.chosenGame = clickedName;
-            // };
-            // self.newGameSubmit = function() {
-            //     if (self.games.includes(self.newGameName)) {
-            //         alert('Game already exists in list');
-            //         return;
-            //     };
-            //     self.games.push(self.newGameName);
-            //     self.openGameDetails(self.newGameName, 'new');
-            //     self.newGameName = '';
-            // };
+            let gamesDB = firebase.database().ref('/Games/');
+            self.gamesObj = $firebaseObject(gamesDB);
+            self.gamesObj.$loaded().then(function() {
+                // angular.forEach(self.gamesObj, function(game) {
+                //     self.games.push(game);
+                // });
+            });
+            gamesDB.on('value', function(data) {
+                self.games = [];
+                for (let game in data.val()) {
+                    if (data.val !==null) {
+                        self.games.push(data.val()[game]);
+                    }
+                };
+            });
         },
 });

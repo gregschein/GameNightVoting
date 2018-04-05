@@ -12,7 +12,7 @@
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
   <link rel="stylesheet" href="app.css">
 
-  <!-- Angular -->
+<!-- Angular -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular-route.js"></script>
 <!-- Firebase -->
@@ -28,7 +28,7 @@
   <script src="app.module.js"></script>
   <script src="player-login/player-login.module.js"></script>
   <script src="player-login/player-login.component.js"></script>
-  <!-- Vote Route -->
+<!-- Vote Route -->
   <script src="vote/vote.module.js"></script>
   <script src="vote/vote.component.js"></script>
   <script src="vote/game-table/game-table.module.js"></script>
@@ -42,22 +42,25 @@
   <![endif]-->
 </head>
 <!-- style='background-color:rgba(255, 255, 255, 0.8); display: inline-block' layout="row" layout-align="space-between center" -->
-<div class="nav"> 
+<body>
+  <div class="nav"> 
     <!-- <a href='#!/login'>Login</a> -->
     <a href='#!/404'>404</a>
     <a href='#!/vote'>Vote</a>
     <a href='/'>Main</a>
     <span style='float: right'><player-login></player-login></span>
-    <div class='authState' ng-switch-when='none' align='center'>
+    <div class='authState' align='center'>
         <div ng-switch="loggedIn">
           <div ng-switch-default>Not Logged In</div>
           <div ng-switch-when='true'>Logged in as {{currentUser}}</div>
         </div>
     </div>
-</div>
-<body ng-switch='winners'>
-    <div ng-view style='background:rgba(255, 255, 255, 0.8); display: inline-block'></div>
   </div>
-  <div ng-switch-default style='background-color:aliceblue'>Hello{{winners}}</div>
+  <!-- <div class='main' ng-switch='(winners.length > 0)'> -->
+    <div ng-show='(winners.length == 0)'>
+      <div ng-view style='background:rgba(255, 255, 255, 0.8); display: inline-block'></div>
+    </div>
+    <div ng-show='(winners.length > 0)' style='background-color:aliceblue'>Winners decided</div>
+  <!-- </div> -->
 </body>
 </html>

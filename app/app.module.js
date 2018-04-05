@@ -53,11 +53,15 @@ app.controller('mainCtrl', function($scope, $firebaseAuth, $firebaseObject) {
         let totalDate = yyyy+mm+dd;
         return totalDate;
     };
-    $scope.winners = 'none';
-    firebase.database().ref('/Votes/'+getNextGameNight()+'/Winners/')
-        .once('value', function(data) {
-            // $scope.winners = Object.keys(data.val());
-        });
+    $scope.winners = [];
+    let winnerRef = firebase.database().ref('/Votes/'+getNextGameNight()+'/Winners/');
+    winnerRef.on('child_added', function(newData, previousData) {
+        console.log(newData.key);
+        if (newData.key !== null) {
+            $scope.winners.push(newData.key);
+            $scope.$apply();
+        }
+    });
     $scope.button = 1;
     $scope.loggedIn = false;
     $scope.change = function() {
