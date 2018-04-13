@@ -4,5 +4,5 @@
     <br>
     <button ng-click=$ctrl.vote()>Vote</button>
     <button ng-click=$ctrl.resolvePool()>Resolve</button>
-    <game-details ng-if='$ctrl.chosenGame' details='$ctrl.gamesObj[$ctrl.chosenGame]' close='$ctrl.closeGameDetails'></game-details>
+    <game-details ng-if='$ctrl.game' game=$ctrl.game close='$ctrl.closeGameDetails'></game-details>
 </div>

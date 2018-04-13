@@ -81,16 +81,15 @@ angular.
                     self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
                 }
             };
-            self.openGameDetails = function(name) {
-                if (self.chosenGame == null) {
-                    self.chosenGame = name;
+            self.openGameDetails = function(game) {
+                if (self.game == null) {
+                    self.game = game;
                 } else {
                     alert('close previous game first');
                 }
             };
             self.closeGameDetails = function() {
-                self.gamesObj.$save();
-                self.chosenGame = null;
+                self.game = null;
             };
             self.saveNewGame = function(name) {
                 let gameEntry = {};
@@ -102,6 +101,7 @@ angular.
                 };
                 gameEntry[name] = entryDetails;
                 self.ref.child('Games').update(gameEntry);
+                self.openGameDetails(name);
             };
     },
 });

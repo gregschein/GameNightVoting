@@ -55,6 +55,12 @@ app.controller('mainCtrl', function($scope, $firebaseAuth, $firebaseObject) {
     };
     $scope.winners = [];
     let winnerRef = firebase.database().ref('/Votes/'+getNextGameNight()+'/Winners/');
+    winnerRef.once('value', function(data) {
+        if (data.val() !== null) {
+            $scope.winners.push(data.val());
+            $scope.$apply();
+        }
+    });
     winnerRef.on('child_added', function(newData, previousData) {
         console.log(newData.key);
         if (newData.key !== null) {

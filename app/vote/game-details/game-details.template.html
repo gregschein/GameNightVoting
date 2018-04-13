@@ -2,13 +2,13 @@
     <span>
         <h4>Board Game Details</h4>
         <label for="BoardGameTitle">Name</label>
-        {{$ctrl.details['Name']}}
+        {{$ctrl.game['Name']}}
         <label for="BoardGamePlayerCount">Player Count</label>
-        <input type="text" id="BoardGamePlayerCount" ng-model="$ctrl.details['PlayerCount']">
-        <label for="BoardGamePlayTime">Play Time</label>
-        <input type="text" id="BoardGamePlayTime" ng-model="$ctrl.details['PlayTime']">
+        <input type="text" id="BoardGamePlayerCount" ng-model="$ctrl.game['PlayerCount']">
+        <label for="BoardGamePlayTime">Play Time (In minutes)</label>
+        <input type="text" id="BoardGamePlayTime" ng-model="$ctrl.game['PlayTime']">
         <label for="BoardGameDescription">Description</label>
-        <textarea id="BoardGameDescription" cols=25 rows=4 ng-model="$ctrl.details['Description']"></textarea>
-        <button ng-click="$ctrl.close()">Submit</button>
+        <textarea id="BoardGameDescription" cols=25 rows=4 ng-model="$ctrl.game['Description']"></textarea>
+        <button ng-click="$ctrl.closeDetails()">Submit</button>
     </span>
 </div>

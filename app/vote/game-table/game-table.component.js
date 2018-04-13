@@ -10,9 +10,6 @@ angular.
         },
         controller: function GameTableController($firebaseAuth, $firebaseObject) {
             let self = this;
-            self.$onInit = function() {
-                console.log('test');
-            };
             self.horizontalExclusive = function(column) {
                 if (self.secondChoice == self.firstChoice) {
                     if (column == 'first') {
@@ -49,7 +46,7 @@ angular.
             gamesDB.on('value', function(data) {
                 self.games = [];
                 for (let game in data.val()) {
-                    if (data.val !==null) {
+                    if (data.val() !==null) {
                         self.games.push(data.val()[game]);
                     }
                 };
