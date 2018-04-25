@@ -1,8 +1,9 @@
 <div>
+    <label>You are currently: {{$ctrl.attendance}}</label>
+    <button ng-click='$ctrl.toggleAttendance()'>Toggle Attendance</button>
     <game-table votes='$ctrl.votes' choose='$ctrl.openGameDetails'></game-table>
     <new-game save-new-game='$ctrl.saveNewGame'></new-game>
     <br>
-    <button ng-click=$ctrl.vote()>Vote</button>
-    <button ng-click=$ctrl.resolvePool()>Resolve</button>
+    <button ng-click=$ctrl.vote()>Vote</button>  
     <game-details ng-if='$ctrl.game' game=$ctrl.game close='$ctrl.closeGameDetails'></game-details>
 </div>

@@ -28,13 +28,42 @@ angular.
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     self.currentUser = user;
+                    self.ref.child(
+                        'Players/'+firebase.auth().currentUser.displayName+'/'+self.gameNightDate)
+                        .once('value', function(data) {
+                            if ('Attendance' in data.val()) {
+                                self.attendance = data.val()['Attendance'];
+                            } else {
+                                self.attendance = 'Attending';
+                                self.ref.child(
+                                    'Players/'+firebase.auth().currentUser.displayName+'/'+self.gameNightDate)
+                                    .update({Attendance: 'Attending'});
+                            };
+                        });
                 } else {
                     self.currentUser = null;
                 }
             });
+            self.toggleAttendance = function() {
+                if (self.attendance == 'Attending') {
+                    self.attendance = 'Not attending';
+                    self.ref.child(
+                        'Players/'+firebase.auth().currentUser.displayName+'/'+self.gameNightDate)
+                        .update({Attendance: 'Not attending'});
+                } else {
+                    self.attendance = 'Attending';
+                    self.ref.child(
+                        'Players/'+firebase.auth().currentUser.displayName+'/'+self.gameNightDate)
+                        .update({Attendance: 'Attending'});
+                }
+            };
             self.vote = function() {
                 if (self.votes == undefined) {
                     alert('Please select your choices of games');
+                    return;
+                };
+                if (self.attendance == 'Not attending') {
+                    alert('You have stated you are not attending. No vote for you.');
                     return;
                 };
                 if (false) {
@@ -79,10 +108,13 @@ angular.
                     let voter = {};
                     voter[self.currentUser.uid] = self.currentUser.displayName;
                     self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
+                    let votedGames = {};
+                    votedGames['Voted Games'] = self.votes;
+                    self.ref.child('Players/'+firebase.auth().currentUser.displayName+'/'+self.gameNightDate).update(votedGames);
                 }
             };
             self.openGameDetails = function(game) {
-                if (self.game == null) {
+                if (self.game == undefined) {
                     self.game = game;
                 } else {
                     alert('close previous game first');
@@ -92,16 +124,35 @@ angular.
                 self.game = null;
             };
             self.saveNewGame = function(name) {
-                let gameEntry = {};
-                let entryDetails = {
-                    Name: name,
-                    PlayTime: '',
-                    PlayerCount: '',
-                    Description: '',
-                };
-                gameEntry[name] = entryDetails;
-                self.ref.child('Games').update(gameEntry);
-                self.openGameDetails(name);
+                let playerRef = self.ref.child('Players/'+firebase.auth().currentUser.displayName+'/'+self.gameNightDate);
+                playerRef.once('value', function(data) {
+                    let gCObj = {};
+                    if ('Games Created' in data.val()) {
+                        gCObj['Games Created'] = data.val()['Games Created']+1;
+                        console.log('existed');
+                    } else {
+                        console.log('didnt');
+                        gCObj['Games Created'] = 1;
+                    };
+                    if (gCObj['Games Created']>=4) {
+                        alert('You are limited to adding 3 new games per week.');
+                        return;
+                    } else {
+                        playerRef.update(gCObj);
+                        let gameEntry = {};
+                        let entryDetails = {
+                            Name: name,
+                            PlayTime: '',
+                            PlayerCount: '',
+                            Description: '',
+                        };
+                        gameEntry[name] = entryDetails;
+                        self.ref.child('Games').update(gameEntry);
+                        self.ref.child('Games/'+name).once('value', function(newGame) {
+                            self.openGameDetails(newGame.val());
+                        });
+                    }
+                });
             };
     },
 });
