@@ -31,6 +31,7 @@ angular.
                     self.ref.child(
                         'Players/'+firebase.auth().currentUser.displayName+'/'+self.gameNightDate)
                         .once('value', function(data) {
+                            self.playerInfo = data.val();
                             if ('Attendance' in data.val()) {
                                 self.attendance = data.val()['Attendance'];
                             } else {
@@ -66,11 +67,14 @@ angular.
                     alert('You have stated you are not attending. No vote for you.');
                     return;
                 };
-                if (false) {
+                if ('Voted Games' in self.playerInfo) {
                     alert('You already voted son');
                     return;
                 } else {
+                    let votedGames = {};
+                    votedGames['Voted Games'] = [];
                     if (self.votes[0] !== undefined) {
+                        votedGames['Voted Games'].push(self.votes[0]);
                         self.ref.child('Votes/'+self.gameNightDate+'/First Choice').once('value', function(data) {
                             self.voteEntry = {};
                             try {
@@ -90,6 +94,7 @@ angular.
                         return;
                     };
                     if (self.votes[1] !== undefined) {
+                        votedGames['Voted Games'].push(self.votes[1]);
                         self.ref.child('Votes/'+self.gameNightDate+'/Second Choice').once('value', function(data) {
                             self.voteEntry = {};
                             try {
@@ -108,9 +113,9 @@ angular.
                     let voter = {};
                     voter[self.currentUser.uid] = self.currentUser.displayName;
                     self.ref.child('Votes/'+self.gameNightDate+'/Voted').update(voter);
-                    let votedGames = {};
-                    votedGames['Voted Games'] = self.votes;
                     self.ref.child('Players/'+firebase.auth().currentUser.displayName+'/'+self.gameNightDate).update(votedGames);
+                    self.playerInfo['Voted Games'] = true;
+                    
                 }
             };
             self.openGameDetails = function(game) {
@@ -129,7 +134,6 @@ angular.
                     let gCObj = {};
                     if ('Games Created' in data.val()) {
                         gCObj['Games Created'] = data.val()['Games Created']+1;
-                        console.log('existed');
                     } else {
                         console.log('didnt');
                         gCObj['Games Created'] = 1;
